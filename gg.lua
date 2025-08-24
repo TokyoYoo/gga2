@@ -13,8 +13,8 @@ github.com/discoart/FluentPlus | dsc.gg/hydrahub
 ]]
 
 --- button
-local Show_Button = false
-local Button_Icon = ""
+---local Show_Button = false
+---local Button_Icon = ""
 ---
 
 local Lighting = game:GetService("Lighting")
@@ -29,16 +29,16 @@ local httpService = game:GetService("HttpService")
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
 
-local Mobile
-if RunService:IsStudio() then
-	Mobile = false
-else
-	Mobile = table.find({Enum.Platform.IOS, Enum.Platform.Android}, UserInputService:GetPlatform()) ~= nil
-end
+---local Mobile
+---if RunService:IsStudio() then
+	---Mobile = false
+---else
+	---Mobile = table.find({Enum.Platform.IOS, Enum.Platform.Android}, UserInputService:GetPlatform()) ~= nil
+---end
 
-if Show_Button then
-	Mobile = true
-end
+---if Show_Button then
+	---Mobile = true
+---end
 
 local fischbypass
 
@@ -6687,10 +6687,75 @@ else
 	Fluent = Library
 end
 
-
+local MinimizeButton = New("TextButton", {
+	BackgroundTransparency = 1,
+	Size = UDim2.new(1, 0, 1, 0),
+	BorderSizePixel = 0
+}, {
+	New("UIPadding", {
+		PaddingBottom = UDim.new(0, 2),
+		PaddingLeft = UDim.new(0, 2),
+		PaddingRight = UDim.new(0, 2),
+		PaddingTop = UDim.new(0, 2),
+	}),
+	New("ImageLabel", {
+		Image = Mobile and (Button_Icon ~= "" and Button_Icon or "rbxassetid://10734897102") or "rbxassetid://10734897102",
+		Size = UDim2.new(1, 0, 1, 0),
+		BackgroundTransparency = 1,
+	}, {
+		New("UIAspectRatioConstraint", {
+			AspectRatio = 1,
+			AspectType = Enum.AspectType.FitWithinMaxSize,
+		})
+	})
+})
 
 local Minimizer
 
+if Mobile then
+	Minimizer = New("Frame", {
+		Parent = GUI,
+		Size = UDim2.new(0.08, 1, 0.1642, 1),
+		Position = UDim2.new(0.45, 0, 0.025, 0),
+		BackgroundTransparency = 1,
+		ZIndex = 999999999,
+	},
+	{
+		New("Frame", {
+			BackgroundColor3 = Color3.fromRGB(0, 0, 0),
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 0.5,
+			BorderSizePixel = 0
+		}, {
+			New("UICorner", {
+				CornerRadius = UDim.new(0.25, 0),
+			}),
+			MinimizeButton
+		})
+	})
+else
+	Minimizer = New("Frame", {
+		Parent = GUI,
+		Size = UDim2.new(0, 0, 0, 0),
+		Position = UDim2.new(0.45, 0, 0.025, 0),
+		BackgroundTransparency = 1,
+		ZIndex = 999999999,
+		Visible = false
+	},
+	{
+		New("Frame", {
+			BackgroundColor3 = Color3.fromRGB(0, 0, 0),
+			Size = UDim2.new(0, 0, 0, 0),
+			BackgroundTransparency = 0,
+			BorderSizePixel = 0
+		}, {
+			New("UICorner", {
+				CornerRadius = UDim.new(0.25, 0),
+			}),
+			MinimizeButton
+		})
+	})
+end
 
 Creator.AddSignal(Minimizer.InputBegan, function(Input)
 	if
