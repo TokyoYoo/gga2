@@ -6688,6 +6688,10 @@ else
 end
 
 
+
+local Minimizer
+
+
 Creator.AddSignal(Minimizer.InputBegan, function(Input)
 	if
 		Input.UserInputType == Enum.UserInputType.MouseButton1
